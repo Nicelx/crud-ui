@@ -1,0 +1,9 @@
+.TableRow {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	margin-bottom: 20px;
+}
+
+.TableRow input, .TableRow td, .TableRow th {
+	height: 25px;
+}
