@@ -6,9 +6,6 @@ import "./App.css";
 
 
 class App extends Component {
-	// componentDidMount() {
-	// 	const fetchData = 
-	// }
 	render() {
 		return (
 			<div className="App">

@@ -112,13 +112,17 @@ const Home = () => {
 				/>
 				{fetchedData
 					? fetchedData.map((item) => {
-							const {
+							if (!item.data) {
+								return null;
+							}
+							let {
 								name = "no name data",
 								email = "no email data",
 								age = "no age data",
 							} = item.data;
+
 							const isEdit = editMatcher === item._id;
-							
+
 							return (
 								<TableRow
 									isEdit={isEdit}
