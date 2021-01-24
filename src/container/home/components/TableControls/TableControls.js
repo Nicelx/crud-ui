@@ -12,6 +12,7 @@ const TableControls = (props) => {
 				<td>
 					<input
 						name="name"
+						placeholder = "some name"
 						onChange={(e) => inputsChange(false, e)}
 						type="text"
 					/>
@@ -19,6 +20,7 @@ const TableControls = (props) => {
 				<td>
 					<input
 						name="email"
+						placeholder = "any@yours.emails"
 						onChange={(e) => inputsChange(false, e)}
 						type="text"
 					/>
@@ -26,6 +28,7 @@ const TableControls = (props) => {
 				<td>
 					<input
 						name="age"
+						placeholder = "20"
 						onChange={(e) => inputsChange(false, e)}
 						type="text"
 					/>

@@ -1,5 +1,5 @@
 .Button{
-	height: 25px;
+	height: 30px;
 	width: 90px;	
 	padding: 4px;
 	margin-left: 5px;
@@ -24,4 +24,10 @@
 }
 .Add {
 	background-color: rgb(3, 145, 3)
+}
+
+@media (max-width: 500px) {
+	.Button {
+		width: 80px;
+	}
 }

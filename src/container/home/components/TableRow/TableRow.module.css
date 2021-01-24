@@ -1,9 +1,19 @@
 .TableRow {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(3, 1fr) 200px;
+	align-items: center;
 	margin-bottom: 20px;
 }
 
-.TableRow input, .TableRow td, .TableRow th {
-	height: 25px;
+.TableRow input, .TableRow td  {
+	height: 30px;
+	margin: auto 0;
+	padding-left: 3px;
+	justify-self: start;
+}
+
+@media (max-width: 800) {
+	.TableRow {
+		grid-template-columns: repeat(4, 1fr) ;
+	}
 }

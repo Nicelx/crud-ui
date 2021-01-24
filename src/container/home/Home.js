@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+
 import TableRow from "./components/TableRow/TableRow";
 import TableHeader from "./components/TableHeader/TableHeader";
 import TableControls from "./components/TableControls/TableControls";
@@ -12,7 +13,11 @@ const URL = "http://178.128.196.163:3000/api/records";
 const Home = () => {
 	const [editMatcher, setEditMatcher] = useState("");
 	const [fetchedData, setFetchedData] = useState("");
-	const [controlsValue, setControlsValue] = useState("");
+	const [controlsValue, setControlsValue] = useState({
+		name: "",
+		email: "",
+		age: "",
+	});
 
 	const addRecordHandler = () => {
 		const objToSend = {
@@ -104,7 +109,7 @@ const Home = () => {
 		<div className={classes.Home}>
 			{!fetchedData && <h1>loading</h1>}
 
-			<table>
+			<table className={classes.Table}>
 				<TableHeader />
 				<TableControls
 					addRecord={addRecordHandler}
@@ -115,13 +120,22 @@ const Home = () => {
 							if (!item.data) {
 								return null;
 							}
-							let {
-								name = "no name data",
-								email = "no email data",
-								age = "no age data",
-							} = item.data;
-
+							const tempObj = { ...item.data };
 							const isEdit = editMatcher === item._id;
+
+							// no empty field in table
+							// converts '' into 'emty field'
+							for (let key in tempObj) {
+								if (!tempObj[key] && !isEdit) {
+									tempObj[key] = "empty field";
+								}
+							}
+
+							let {
+								name = "no name in db",
+								email = "no email in db",
+								age = "no age in db",
+							} = tempObj;
 
 							return (
 								<TableRow
