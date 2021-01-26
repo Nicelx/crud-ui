@@ -4,6 +4,10 @@ import TableRow from "./components/TableRow/TableRow";
 import TableHeader from "./components/TableHeader/TableHeader";
 import TableControls from "./components/TableControls/TableControls";
 
+import validate from '../../utility-scripts/validate'
+import objectsEquality from './../../utility-scripts/objectsEquality';
+
+
 import classes from "./Home.module.css";
 
 const URL = "http://178.128.196.163:3000/api/records";
@@ -13,6 +17,7 @@ const URL = "http://178.128.196.163:3000/api/records";
 const Home = () => {
 	const [editMatcher, setEditMatcher] = useState("");
 	const [fetchedData, setFetchedData] = useState("");
+	const [fetchSnapshot, setFetchSnapshot] = useState()
 	const [controlsValue, setControlsValue] = useState({
 		name: "",
 		email: "",
@@ -20,10 +25,12 @@ const Home = () => {
 	});
 
 	const addRecordHandler = () => {
+		if (!validate(controlsValue)) return
+
 		const objToSend = {
 			data: controlsValue,
 		};
-
+		
 		fetch(URL, {
 			method: "PUT",
 			body: JSON.stringify(objToSend),
@@ -35,12 +42,27 @@ const Home = () => {
 		});
 	};
 
-	const updateRecordHandler = (row) => {
+	const updateRecordHandler = (rowId) => {
 		const targetObj = fetchedData.find((elem) => {
-			return elem._id === row;
+			return elem._id === rowId;
 		});
+		
+		// console.log(fetchedData)
+		// console.log(fetchSnapshot)
 
-		fetch(`${URL}/${row}`, {
+
+		// console.log(targetObj.data)
+		// console.log(targetSnapshotObj.data)
+
+		if (!validate(targetObj.data)) return
+		// if (objectsEquality(targetObj.data, targetSnapshotObj.data)) {
+		// 	alert('change something')
+		// 	return
+		// }
+		// console.log(targetObj.data)
+		// console.log(targetSnapshotObj.data)
+		
+		fetch(`${URL}/${rowId}`, {
 			method: "POST",
 			body: JSON.stringify({ data: targetObj.data }),
 			headers: {
@@ -89,8 +111,18 @@ const Home = () => {
 		}
 	};
 
-	const toggleEdit = (row) => {
-		setEditMatcher(row);
+	const toggleEdit = (rowId) => {
+		
+		setEditMatcher(rowId);
+
+		const targetSnapshotObj = fetchedData.find((elem) => {
+			return elem._id === rowId
+		})
+		const rowData = {...targetSnapshotObj.data}
+
+		// console.log(rowData)
+		setFetchSnapshot(rowData)
+		console.log(fetchSnapshot)
 	};
 
 	const getData = useCallback(() => {
