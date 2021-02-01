@@ -1,12 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 
 import TableRow from "./components/TableRow/TableRow";
 import TableHeader from "./components/TableHeader/TableHeader";
 import TableControls from "./components/TableControls/TableControls";
+import { getData2, saveFetch, selectRecords } from "./recordsSlice";
+
 
 import validate from '../../utility-scripts/validate'
 import objectsEquality from './../../utility-scripts/objectsEquality';
-
 
 import classes from "./Home.module.css";
 
@@ -15,6 +18,7 @@ const URL = "http://178.128.196.163:3000/api/records";
 // source of true
 // i decide to store our state here, but ... Redux or new hooks possibility to manage store can be the option
 const Home = () => {
+	const records = useSelector(selectRecords)
 	const [editMatcher, setEditMatcher] = useState("");
 	const [fetchedData, setFetchedData] = useState("");
 	const [fetchSnapshot, setFetchSnapshot] = useState()
@@ -23,6 +27,8 @@ const Home = () => {
 		email: "",
 		age: "",
 	});
+
+	const dispatch = useDispatch()
 
 	const addRecordHandler = () => {
 		if (!validate(controlsValue)) return
@@ -135,7 +141,9 @@ const Home = () => {
 			.catch((err) => console.log(err));
 	}, []);
 
-	useEffect(getData, []);
+	// useEffect(getData, []);
+	// useEffect(dispatch(getData2()), [])
+	useEffect(()=> dispatch(saveFetch([1,2,3])), [])
 
 	return (
 		<div className={classes.Home}>
