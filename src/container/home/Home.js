@@ -30,133 +30,132 @@ const Home = () => {
 
 	const dispatch = useDispatch()
 
-	const addRecordHandler = () => {
-		if (!validate(controlsValue)) return
+	// const addRecordHandler = () => {
+	// 	if (!validate(controlsValue)) return
 
-		const objToSend = {
-			data: controlsValue,
-		};
+	// 	const objToSend = {
+	// 		data: controlsValue,
+	// 	};
 		
-		fetch(URL, {
-			method: "PUT",
-			body: JSON.stringify(objToSend),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		}).then(() => {
-			getData();
-		});
-	};
+	// 	fetch(URL, {
+	// 		method: "PUT",
+	// 		body: JSON.stringify(objToSend),
+	// 		headers: {
+	// 			"Content-Type": "application/json",
+	// 		},
+	// 	}).then(() => {
+	// 		getData();
+	// 	});
+	// };
 
-	const updateRecordHandler = (rowId) => {
-		const targetObj = fetchedData.find((elem) => {
-			return elem._id === rowId;
-		});
+	// const updateRecordHandler = (rowId) => {
+	// 	const targetObj = fetchedData.find((elem) => {
+	// 		return elem._id === rowId;
+	// 	});
 		
-		// console.log(fetchedData)
-		// console.log(fetchSnapshot)
+	// 	// console.log(fetchedData)
+	// 	// console.log(fetchSnapshot)
 
 
-		// console.log(targetObj.data)
-		// console.log(targetSnapshotObj.data)
+	// 	// console.log(targetObj.data)
+	// 	// console.log(targetSnapshotObj.data)
 
-		if (!validate(targetObj.data)) return
-		// if (objectsEquality(targetObj.data, targetSnapshotObj.data)) {
-		// 	alert('change something')
-		// 	return
-		// }
-		// console.log(targetObj.data)
-		// console.log(targetSnapshotObj.data)
+	// 	if (!validate(targetObj.data)) return
+	// 	// if (objectsEquality(targetObj.data, targetSnapshotObj.data)) {
+	// 	// 	alert('change something')
+	// 	// 	return
+	// 	// }
+	// 	// console.log(targetObj.data)
+	// 	// console.log(targetSnapshotObj.data)
 		
-		fetch(`${URL}/${rowId}`, {
-			method: "POST",
-			body: JSON.stringify({ data: targetObj.data }),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-			.then((response) => {
-				getData();
-			})
-			.catch((e) => {
-				alert(e);
-			});
-	};
+	// 	fetch(`${URL}/${rowId}`, {
+	// 		method: "POST",
+	// 		body: JSON.stringify({ data: targetObj.data }),
+	// 		headers: {
+	// 			"Content-Type": "application/json",
+	// 		},
+	// 	})
+	// 		.then((response) => {
+	// 			getData();
+	// 		})
+	// 		.catch((e) => {
+	// 			alert(e);
+	// 		});
+	// };
 
-	const deleteRecordHandler = (id) => {
-		fetch(`${URL}/${id}`, {
-			method: "DELETE",
-		}).then(() => {
-			getData();
-		});
-	};
+	// const deleteRecordHandler = (id) => {
+	// 	fetch(`${URL}/${id}`, {
+	// 		method: "DELETE",
+	// 	}).then(() => {
+	// 		getData();
+	// 	});
+	// };
 
-	const inputsChange = (row, event) => {
-		const { value, name } = event.target;
+	// const inputsChange = (row, event) => {
+	// 	const { value, name } = event.target;
 
-		// tbh, i don't like this my solution of updating inputs...
-		if (row) {
-			//find index of array with key we have.
-			const index = fetchedData.findIndex((elem) => {
-				return elem._id === row;
-			});
-			// updating array-like state
-			setFetchedData((prev) => {
-				const newArr = [...prev];
-				newArr[index].data[name] = value;
-				return newArr;
-			});
-		} else {
-			// i keep 2 different state for creating new records and updating them
-			setControlsValue((prev) => {
-				return {
-					...prev,
-					[name]: value,
-				};
-			});
-		}
-	};
+	// 	// tbh, i don't like this my solution of updating inputs...
+	// 	if (row) {
+	// 		//find index of array with key we have.
+	// 		const index = fetchedData.findIndex((elem) => {
+	// 			return elem._id === row;
+	// 		});
+	// 		// updating array-like state
+	// 		setFetchedData((prev) => {
+	// 			const newArr = [...prev];
+	// 			newArr[index].data[name] = value;
+	// 			return newArr;
+	// 		});
+	// 	} else {
+	// 		// i keep 2 different state for creating new records and updating them
+	// 		setControlsValue((prev) => {
+	// 			return {
+	// 				...prev,
+	// 				[name]: value,
+	// 			};
+	// 		});
+	// 	}
+	// };
 
-	const toggleEdit = (rowId) => {
+	// const toggleEdit = (rowId) => {
 		
-		setEditMatcher(rowId);
+	// 	setEditMatcher(rowId);
 
-		const targetSnapshotObj = fetchedData.find((elem) => {
-			return elem._id === rowId
-		})
-		const rowData = {...targetSnapshotObj.data}
+	// 	const targetSnapshotObj = fetchedData.find((elem) => {
+	// 		return elem._id === rowId
+	// 	})
+	// 	const rowData = {...targetSnapshotObj.data}
 
-		// console.log(rowData)
-		setFetchSnapshot(rowData)
-		console.log(fetchSnapshot)
-	};
+	// 	// console.log(rowData)
+	// 	setFetchSnapshot(rowData)
+	// 	console.log(fetchSnapshot)
+	// };
 
-	const getData = useCallback(() => {
-		fetch(`${URL}`)
-			.then((response) => response.json())
-			.then((data) => {
-				setFetchedData(data);
-				setEditMatcher((prev) => {});
-			})
-			.catch((err) => console.log(err));
-	}, []);
+	// const getData = useCallback(() => {
+	// 	fetch(`${URL}`)
+	// 		.then((response) => response.json())
+	// 		.then((data) => {
+	// 			setFetchedData(data);
+	// 			setEditMatcher((prev) => {});
+	// 		})
+	// 		.catch((err) => console.log(err));
+	// }, []);
 
 	// useEffect(getData, []);
-	// useEffect(dispatch(getData2()), [])
-	useEffect(()=> dispatch(saveFetch([1,2,3])), [])
+	useEffect(() => dispatch(getData2()), [])
 
 	return (
 		<div className={classes.Home}>
-			{!fetchedData && <h1>loading</h1>}
+			{!records && <h1>loading</h1>}
 
 			<table className={classes.Table}>
 				<TableHeader />
 				<TableControls
-					addRecord={addRecordHandler}
-					inputsChange={inputsChange}
+					// addRecord={addRecordHandler}
+					// inputsChange={inputsChange}
 				/>
-				{fetchedData
-					? fetchedData.map((item) => {
+				{records
+					? records.map((item) => {
 							if (!item.data) {
 								return null;
 							}
@@ -185,10 +184,10 @@ const Home = () => {
 									name={name}
 									email={email}
 									age={age}
-									deleteRecord={deleteRecordHandler}
-									updateRecord={updateRecordHandler}
-									inputsChange={inputsChange}
-									toggleEdit={toggleEdit}
+									// deleteRecord={deleteRecordHandler}
+									// updateRecord={updateRecordHandler}
+									// inputsChange={inputsChange}
+									// toggleEdit={toggleEdit}
 								/>
 							);
 					  })

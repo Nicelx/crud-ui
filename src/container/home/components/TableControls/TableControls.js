@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "./../../../../components/Button/Button";
 
 import classes from "../TableRow/TableRow.module.css";
 
 const TableControls = (props) => {
 	const { addRecord, inputsChange } = props;
+	const [name, setName] = useState('')
+	const [email, setEmail] = useState('')
+	const [age, setAge] = useState('')
 
 	return (
 		<tbody>

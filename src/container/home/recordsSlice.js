@@ -8,7 +8,7 @@ const recordsSlice = createSlice({
 	initialState,
 	reducers : {
 		saveFetch : (state, action) => {
-			state = action.payload
+			return action.payload
 		}
 	}
 })
@@ -19,8 +19,7 @@ export const getData2 = () => dispatch => {
 	fetch(`${URL}`)
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data)
-				// dispatch(saveFetch(data))
+				dispatch(saveFetch(data))
 			})
 			.catch((err) => console.log(err));
 }
