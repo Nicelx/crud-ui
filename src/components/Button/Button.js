@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./Button.module.css";
 
-const Button = (props) => {
+export const Button = (props) => {
 	const clsx = [`${classes.Button}`];
 
 	switch (props.type) {
@@ -25,5 +25,3 @@ const Button = (props) => {
 		</button>
 	);
 };
-
-export default Button;
